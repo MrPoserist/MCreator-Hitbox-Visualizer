@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var hitbox_anchor: StaticBody3D = $HitboxAnchor
+@onready var model_root: Node3D = $ModelRoot
 
 @onready var min_x: SpinBox = $UI/HBoxContainer/MinValue/X
 @onready var min_y: SpinBox = $UI/HBoxContainer/MinValue/Y
@@ -51,6 +52,7 @@ var show_debug_collisions_hint: bool:
 
 func _ready() -> void:
 	show_debug_collisions_hint = true
+	get_window().files_dropped.connect(_on_files_dropped)
 
 func _on_size_value_changed(_value: float) -> void:
 	hitbox_anchor.scale = Vector3(
@@ -59,3 +61,77 @@ func _on_size_value_changed(_value: float) -> void:
 		max_z.value - min_z.value
 	)
 	hitbox_anchor.position = Vector3(min_x.value, min_y.value, min_z.value)
+
+func _on_files_dropped(files: PackedStringArray):
+	if files.is_empty():
+		return
+	load_model(files[0])
+
+func load_model(path: String):
+	for child in model_root.get_children():
+		child.queue_free()
+	
+	var text := FileAccess.get_file_as_string(path)
+	var json := JSON.new()
+	if json.parse(text) != OK:
+		push_error("Ошибка чтения JSON")
+		return
+	
+	var data: Dictionary = json.data
+	if !data.has("elements"):
+		push_error("В модели нет elements")
+		return
+	
+	for element in data["elements"]:
+		create_cube(element)
+
+func create_cube(element: Dictionary):
+	var from := Vector3(
+		element["from"][0],
+		element["from"][1],
+		element["from"][2]
+	) / 16.0
+	
+	var to := Vector3(
+		element["to"][0],
+		element["to"][1],
+		element["to"][2]
+	) / 16.0
+	
+	var size := to - from
+	var center := (from + to) * 0.5
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	
+	var cube := MeshInstance3D.new()
+	cube.mesh = mesh
+	
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color(randf_range(0.4, 0.7), randf_range(0.4, 0.7), randf_range(0.4, 0.7))
+	cube.material_override = material
+	
+	if element.has("rotation"):
+		var rot = element["rotation"]
+		var origin := Vector3(
+			rot["origin"][0],
+			rot["origin"][1],
+			rot["origin"][2]
+		) / 16.0
+		
+		var pivot := Node3D.new()
+		pivot.position = origin
+		cube.position = center - origin
+		
+		var angle = deg_to_rad(float(rot["angle"]))
+		match rot["axis"]:
+			"x":
+				pivot.rotate_x(angle)
+			"y":
+				pivot.rotate_y(angle)
+			"z":
+				pivot.rotate_z(angle)
+		pivot.add_child(cube)
+		model_root.add_child(pivot)
+	else:
+		cube.position = center
+		model_root.add_child(cube)

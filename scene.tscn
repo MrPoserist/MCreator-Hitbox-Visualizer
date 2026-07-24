@@ -25,16 +25,16 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAAvwAAAAAAAAC/AAAAvwAAAAAAAAA/AAAAvwAAAAAAAAC/AAAAPwAAAAAAAAC/AADgvgAAAAAAAAC/AADgvgAAAAAAAAA/AAAAvwAAAAAAAOC+AAAAPwAAAAAAAOC+AADAvgAAAAAAAAC/AADAvgAAAAAAAAA/AAAAvwAAAAAAAMC+AAAAPwAAAAAAAMC+AACgvgAAAAAAAAC/AACgvgAAAAAAAAA/AAAAvwAAAAAAAKC+AAAAPwAAAAAAAKC+AACAvgAAAAAAAAC/AACAvgAAAAAAAAA/AAAAvwAAAAAAAIC+AAAAPwAAAAAAAIC+AABAvgAAAAAAAAC/AABAvgAAAAAAAAA/AAAAvwAAAAAAAEC+AAAAPwAAAAAAAEC+AAAAvgAAAAAAAAC/AAAAvgAAAAAAAAA/AAAAvwAAAAAAAAC+AAAAPwAAAAAAAAC+AACAvQAAAAAAAAC/AACAvQAAAAAAAAA/AAAAvwAAAAAAAIC9AAAAPwAAAAAAAIC9AAAAAAAAAAAAAAC/AAAAAAAAAAAAAAA/AAAAvwAAAAAAAAAAAAAAPwAAAAAAAAAAAACAPQAAAAAAAAC/AACAPQAAAAAAAAA/AAAAvwAAAAAAAIA9AAAAPwAAAAAAAIA9AAAAPgAAAAAAAAC/AAAAPgAAAAAAAAA/AAAAvwAAAAAAAAA+AAAAPwAAAAAAAAA+AABAPgAAAAAAAAC/AABAPgAAAAAAAAA/AAAAvwAAAAAAAEA+AAAAPwAAAAAAAEA+AACAPgAAAAAAAAC/AACAPgAAAAAAAAA/AAAAvwAAAAAAAIA+AAAAPwAAAAAAAIA+AACgPgAAAAAAAAC/AACgPgAAAAAAAAA/AAAAvwAAAAAAAKA+AAAAPwAAAAAAAKA+AADAPgAAAAAAAAC/AADAPgAAAAAAAAA/AAAAvwAAAAAAAMA+AAAAPwAAAAAAAMA+AADgPgAAAAAAAAC/AADgPgAAAAAAAAA/AAAAvwAAAAAAAOA+AAAAPwAAAAAAAOA+AAAAPwAAAAAAAAC/AAAAPwAAAAAAAAA/AAAAvwAAAAAAAAA/AAAAPwAAAAAAAAA/")
 }]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u3cyc"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7jmp"]
 transparency = 1
 shading_mode = 0
 albedo_color = Color(0.47787958, 0.47788042, 0.47787976, 0.6)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_m7jmp"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_y2354"]
 _surfaces = [{
 "aabb": AABB(-1.5, 0, -1.5, 3, 1e-05, 3),
 "format": 34359738369,
-"material": SubResource("StandardMaterial3D_u3cyc"),
+"material": SubResource("StandardMaterial3D_m7jmp"),
 "primitive": 1,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 196,
@@ -153,11 +153,11 @@ script = ExtResource("1_ulcgi")
 environment = SubResource("Environment_nxogm")
 
 [node name="CameraAnchor" type="Node3D" parent="." unique_id=1763682946]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5, 0.5, 0.5)
+transform = Transform3D(-0.90408254, 0.18060924, -0.38731775, 0, 0.90630776, 0.42261827, 0.42735785, 0.3820818, -0.819377, 0.5, 0.5, 0.5)
 script = ExtResource("2_3253y")
 
 [node name="Camera" type="Camera3D" parent="CameraAnchor" unique_id=1992767824]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 1.1920929e-07, 0, 3)
 fov = 40.0
 
 [node name="HitboxAnchor" type="StaticBody3D" parent="." unique_id=1401910359]
@@ -167,6 +167,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
 shape = SubResource("BoxShape3D_xwrsm")
 debug_color = Color(0.32941177, 0.8, 0.93333334, 0.67058825)
 
+[node name="ModelRoot" type="Node3D" parent="." unique_id=1074887856]
+
+[node name="Light" type="DirectionalLight3D" parent="." unique_id=2130232469]
+transform = Transform3D(0.88141775, -0.33366543, -0.33432046, 2.2351742e-08, -0.7077998, 0.70641303, -0.4723376, -0.6226449, -0.62386733, 0, 0, 0)
+
 [node name="Grid" type="MeshInstance3D" parent="." unique_id=1707271211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
 mesh = SubResource("ArrayMesh_u3cyc")
@@ -174,7 +179,7 @@ script = ExtResource("2_nxogm")
 
 [node name="Grid2" type="MeshInstance3D" parent="." unique_id=652386841]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
-mesh = SubResource("ArrayMesh_m7jmp")
+mesh = SubResource("ArrayMesh_y2354")
 script = ExtResource("2_nxogm")
 grid_size = 48
 color = Color(0.47787958, 0.47788042, 0.47787976, 0.6)
@@ -267,10 +272,11 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -150.0
-offset_right = 190.0
+offset_left = 10.0
+offset_top = -179.0
+offset_right = 220.0
+offset_bottom = -9.0
 grow_vertical = 0
-scale = Vector2(1.65, 1.65)
 pivot_offset = Vector2(0, 150)
 color = Color(0, 0, 0, 0.6509804)
 
@@ -279,12 +285,11 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 15.0
-offset_top = -165.0
-offset_right = 205.0
-offset_bottom = -15.0
+offset_left = 21.0
+offset_top = -169.0
+offset_right = 211.0
+offset_bottom = -19.0
 grow_vertical = 0
-scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(0, 150)
 theme_override_constants/separation = 16
 

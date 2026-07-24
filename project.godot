@@ -18,14 +18,14 @@ boot_splash/show_image=false
 
 [display]
 
-window/size/viewport_width=1000
-window/size/viewport_height=800
+window/size/viewport_width=800
+window/size/viewport_height=600
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/minecraft_json_model/plugin.cfg")
+enabled=PackedStringArray()
 
 [physics]
 
